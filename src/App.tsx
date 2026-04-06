@@ -59,6 +59,10 @@ function createMailto(formState: FormState, plannerSummary: string) {
   return `${baseLeadMailto}&body=${body}`;
 }
 
+function launchLeadEmail(mailtoHref = baseLeadMailto) {
+  window.location.assign(mailtoHref);
+}
+
 function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -101,6 +105,10 @@ function Navbar() {
           ))}
           <a
             href={baseLeadMailto}
+            onClick={(event) => {
+              event.preventDefault();
+              launchLeadEmail();
+            }}
             className="inline-flex items-center gap-2 rounded-full bg-slate-950 px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
           >
             Book intro call
@@ -139,8 +147,12 @@ function Navbar() {
               ))}
               <a
                 href={baseLeadMailto}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setMobileMenuOpen(false);
+                  launchLeadEmail();
+                }}
                 className="mt-2 inline-flex items-center justify-center rounded-2xl bg-slate-950 px-4 py-3 text-base font-semibold text-white"
-                onClick={() => setMobileMenuOpen(false)}
               >
                 Book intro call
               </a>
@@ -194,6 +206,10 @@ function Hero() {
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
               href={baseLeadMailto}
+              onClick={(event) => {
+                event.preventDefault();
+                launchLeadEmail();
+              }}
               className="inline-flex items-center justify-center gap-2 rounded-full bg-cyan-400 px-7 py-4 text-base font-bold text-slate-950 transition-transform hover:-translate-y-0.5"
             >
               Launch readiness planner
@@ -201,6 +217,10 @@ function Hero() {
             </a>
             <a
               href={baseLeadMailto}
+              onClick={(event) => {
+                event.preventDefault();
+                launchLeadEmail();
+              }}
               className="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 bg-white/8 px-7 py-4 text-base font-bold text-white backdrop-blur transition-colors hover:bg-white/14"
             >
               Explore platform
@@ -438,6 +458,10 @@ function SolutionsSection() {
                 </div>
                 <a
                   href={baseLeadMailto}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    launchLeadEmail();
+                  }}
                   className="mt-7 inline-flex items-center gap-2 text-base font-bold text-cyan-800 transition-all hover:gap-3"
                 >
                   Talk through this workflow
@@ -705,7 +729,7 @@ function ContactSection() {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setSubmitted(true);
-    window.location.href = mailtoHref;
+    launchLeadEmail(mailtoHref);
   }
 
   return (
@@ -808,6 +832,10 @@ function ContactSection() {
               </button>
               <a
                 href={baseLeadMailto}
+                onClick={(event) => {
+                  event.preventDefault();
+                  launchLeadEmail();
+                }}
                 className="inline-flex items-center justify-center rounded-full border border-slate-200 px-6 py-4 text-base font-bold text-slate-700"
               >
                 Email directly
@@ -842,10 +870,24 @@ function Footer() {
 function MobileDock() {
   return (
     <div className="mobile-dock md:hidden">
-      <a href={baseLeadMailto} className="mobile-dock-link mobile-dock-link-primary">
+      <a
+        href={baseLeadMailto}
+        onClick={(event) => {
+          event.preventDefault();
+          launchLeadEmail();
+        }}
+        className="mobile-dock-link mobile-dock-link-primary"
+      >
         Planner
       </a>
-      <a href={baseLeadMailto} className="mobile-dock-link">
+      <a
+        href={baseLeadMailto}
+        onClick={(event) => {
+          event.preventDefault();
+          launchLeadEmail();
+        }}
+        className="mobile-dock-link"
+      >
         Contact
       </a>
     </div>
